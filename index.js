@@ -239,40 +239,59 @@ document.addEventListener('DOMContentLoaded', () => {
             submitBtn.textContent = 'Submitting Details...';
             submitBtn.style.opacity = '0.7';
 
-            // Simulate server network latency (800ms)
-            setTimeout(() => {
-                // Restore button state
+            // Send data to FormSubmit via AJAX (fetch)
+            const formData = new FormData(contactForm);
+            
+            fetch(contactForm.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    // Restore button state
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = originalBtnText;
+                    submitBtn.style.opacity = '';
+
+                    // Log form details (for demo/developer verification)
+                    console.log('--- Bright Future Academy Form Entry ---');
+                    console.log(`Student: ${studentName}`);
+                    console.log(`Parent: ${parentName}`);
+                    console.log(`Contact: ${phone} | ${email}`);
+                    console.log(`Course Choice: ${course}`);
+                    console.log(`Query Notes: ${message}`);
+                    console.log('----------------------------------------');
+
+                    // Smoothly trigger and display visual confirmation banner
+                    formSuccessMsg.style.display = 'flex';
+                    formSuccessMsg.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    
+                    // Clear input controls
+                    contactForm.reset();
+
+                    // Clear success message automatically after 6 seconds
+                    setTimeout(() => {
+                        formSuccessMsg.style.transition = 'opacity 0.5s ease';
+                        formSuccessMsg.style.opacity = '0';
+                        setTimeout(() => {
+                            formSuccessMsg.style.display = 'none';
+                            formSuccessMsg.style.opacity = '1';
+                        }, 500);
+                    }, 6000);
+                } else {
+                    throw new Error('Form submission failed');
+                }
+            })
+            .catch(error => {
+                console.error('Error submitting form:', error);
                 submitBtn.disabled = false;
                 submitBtn.textContent = originalBtnText;
                 submitBtn.style.opacity = '';
-
-                // Log form details (for demo/developer verification)
-                console.log('--- Bright Future Academy Form Entry ---');
-                console.log(`Student: ${studentName}`);
-                console.log(`Parent: ${parentName}`);
-                console.log(`Contact: ${phone} | ${email}`);
-                console.log(`Course Choice: ${course}`);
-                console.log(`Query Notes: ${message}`);
-                console.log('----------------------------------------');
-
-                // Smoothly trigger and display visual confirmation banner
-                formSuccessMsg.style.display = 'flex';
-                formSuccessMsg.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                
-                // Clear input controls
-                contactForm.reset();
-
-                // Clear success message automatically after 6 seconds
-                setTimeout(() => {
-                    formSuccessMsg.style.transition = 'opacity 0.5s ease';
-                    formSuccessMsg.style.opacity = '0';
-                    setTimeout(() => {
-                        formSuccessMsg.style.display = 'none';
-                        formSuccessMsg.style.opacity = '1';
-                    }, 500);
-                }, 6000);
-                
-            }, 800); // 800ms simulation
+                alert('There was a problem submitting your inquiry. Please try calling us directly.');
+            });
         });
     }
 });
