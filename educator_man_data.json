@@ -1,0 +1,68 @@
+{
+  "brand": "Educator Man",
+  "contact": {
+    "phone": "93282 51022",
+    "address": "Copper Height 1, Near Modi School, Kirti Pan - Parlour Main Road, Jamnagar, Gujarat - 361005"
+  },
+  "courses": {
+    "standards": [
+      "6th",
+      "7th",
+      "8th",
+      "9th",
+      "10th",
+      "11th",
+      "12th"
+    ],
+    "boards": [
+      "GSEB",
+      "CBSE"
+    ],
+    "mediums": [
+      "Gujarati",
+      "English"
+    ],
+    "streams": [
+      "Commerce",
+      "Science"
+    ]
+  },
+  "headline": {
+    "english": [
+      "For Good Future, Need Good Education",
+      "For Good Education, Need EDUCATOR MAN"
+    ]
+  },
+  "offers": {
+    "free_demo": {
+      "title": "Free Demo Class Started",
+      "date": "23rd February",
+      "applicable_for": [
+        "10th",
+        "11th",
+        "12th Science"
+      ]
+    },
+    "gold_tier": {
+      "eligibility": "95%+ marks in previous year",
+      "scholarship": "50% Scholarship"
+    },
+    "silver_tier": {
+      "eligibility": "85% to 94% marks in previous year",
+      "scholarship": "20% Scholarship"
+    },
+    "girl_child_empowerment": {
+      "discount": "10-15% Special Discount",
+      "description": "To encourage female education in STEM or competitive exams"
+    },
+    "teach_one": {
+      "title": "The Each One Teach One",
+      "description": "Your enrollment opens a door for every paid seat, offering one free seat to a government school student."
+    }
+  },
+  "cta": {
+    "main": "BOOK YOUR SEAT TODAY",
+    "subtext": "Get EDUCATOR MAN Experience of Education with Facilities",
+    "footer": "LET'S SUCCEED TOGETHER"
+  }
+}
