@@ -294,4 +294,24 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     }
+
+    const courseSelect = document.getElementById("course-select");
+    const streamGroup = document.getElementById("stream-group");
+    const streamSelect = document.getElementById("stream-select");
+
+    if (courseSelect) {
+        courseSelect.addEventListener("change", function () {
+
+            if (this.value === "11th" || this.value === "12th") {
+                streamGroup.style.display = "block";
+                streamSelect.required = true;
+            } else {
+                streamGroup.style.display = "none";
+                streamSelect.required = false;
+                streamSelect.value = "";
+            }
+
+        });
+    }
+
 });
