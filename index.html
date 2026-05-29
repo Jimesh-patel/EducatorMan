@@ -477,7 +477,7 @@
                         <p class="offer-desc">Special discount explicitly curated to encourage female education in STEM
                             fields or competitive engineering & medical examination preparations. Our initiative aims to
                             support girls on their journey to top colleges and professional success.</p>
-                        <a href="#contact" class="btn btn-secondary btn-sm">Apply for Empowerment Grant</a>
+                        <button type="button" class="btn btn-secondary btn-sm btn-empowerment-modal">Apply for Empowerment Grant</button>
                     </div>
                 </div>
             </div>
@@ -1078,6 +1078,35 @@
             </div>
         </form>
     </div>
+    <!-- Empowerment Modal -->
+    <div class="modal" id="empowerment-modal">
+        <button class="modal-close" id="empowerment-close" aria-label="Close modal">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+        </button>
+        <div class="modal-header">
+            <h3>Apply for Girl Seat</h3>
+            <p>Fill form to apply for the empowerment grant, we will contact you in 24 hr.</p>
+        </div>
+        <form class="modal-form" id="empowerment-form">
+            <div class="form-group">
+                <label for="empowerment-name">Name</label>
+                <input type="text" id="empowerment-name" class="form-control" placeholder="Enter your name" required>
+            </div>
+            <div class="form-group">
+                <label for="empowerment-mobile">Mobile Number</label>
+                <input type="tel" id="empowerment-mobile" class="form-control" placeholder="Enter your mobile number"
+                    pattern="[0-9]{10}" maxlength="10" required>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Submit</button>
+            <div class="form-success-msg" id="empowerment-success" style="display: none; margin-top: 1rem;">
+                <span>We will call you in 24 hr.</span>
+            </div>
+        </form>
+    </div>
 
     <!-- Eligibility Modal -->
     <div class="modal" id="eligibility-modal">
@@ -1090,29 +1119,85 @@
         </button>
         <div class="modal-header">
             <h3>Check Eligibility</h3>
-            <p>Enter your details to see if you qualify for our special scholarship programs.</p>
         </div>
-        <form class="modal-form" id="eligibility-form">
+
+        <!-- Toggle Tabs -->
+        <div class="eligibility-tabs" id="eligibility-tabs">
+            <button type="button" class="eligibility-tab active" data-tab="last-result">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                    <polyline points="14 2 14 8 20 8" />
+                    <line x1="16" y1="13" x2="8" y2="13" />
+                    <line x1="16" y1="17" x2="8" y2="17" />
+                    <polyline points="10 9 9 9 8 9" />
+                </svg>
+                Last Result
+            </button>
+            <button type="button" class="eligibility-tab" data-tab="entrance-exam">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                    <line x1="16" y1="2" x2="16" y2="6" />
+                    <line x1="8" y1="2" x2="8" y2="6" />
+                    <line x1="3" y1="10" x2="21" y2="10" />
+                </svg>
+                Entrance Exam
+            </button>
+        </div>
+
+        <!-- Tab 1: Last Result Form -->
+        <form class="modal-form eligibility-panel active" id="eligibility-form-last-result" data-panel="last-result">
             <div class="form-group">
-                <label for="eligibility-name">Name</label>
-                <input type="text" id="eligibility-name" class="form-control" placeholder="Enter your name" required>
+                <label for="eligibility-lr-name">Name</label>
+                <input type="text" id="eligibility-lr-name" class="form-control" placeholder="Enter your name"
+                    pattern="[A-Za-z ]+" title="Only letters and spaces are allowed" required>
             </div>
             <div class="form-group">
-                <label for="eligibility-mobile">Mobile Number</label>
-                <input type="tel" id="eligibility-mobile" class="form-control" placeholder="Enter your mobile number"
-                    pattern="[0-9]{10}" maxlength="10" required>
+                <label for="eligibility-lr-mobile">Phone Number</label>
+                <input type="tel" id="eligibility-lr-mobile" class="form-control" placeholder="Enter your mobile number"
+                    pattern="[0-9]{10}" maxlength="10" title="Enter a valid 10-digit mobile number" required>
             </div>
             <div class="form-group">
-                <label for="eligibility-standard">Last Standard</label>
-                <input type="text" id="eligibility-standard" class="form-control" placeholder="e.g. 10th, 9th" required>
+                <label for="eligibility-lr-standard">Last Standard</label>
+                <input type="text" id="eligibility-lr-standard" class="form-control" placeholder="e.g. 10th, 9th"
+                    required>
             </div>
             <div class="form-group">
-                <label for="eligibility-result">Result (%)</label>
-                <input type="number" id="eligibility-result" class="form-control" placeholder="e.g. 95" required>
+                <label for="eligibility-lr-result">Last Result (%)</label>
+                <input type="number" id="eligibility-lr-result" class="form-control" placeholder="e.g. 95" min="0"
+                    max="100" required>
             </div>
-            <button type="submit" class="btn btn-primary btn-block">Check Now</button>
-            <div class="form-success-msg" id="eligibility-success" style="display: none; margin-top: 1rem;">
-                <span>Thank you! We will verify and contact you.</span>
+            <button type="submit" class="btn btn-primary btn-block">Check Eligibility</button>
+            <div class="form-success-msg" id="eligibility-lr-success" style="display: none; margin-top: 1rem;">
+                <span>Thank you! We will verify your result and contact you shortly.</span>
+            </div>
+        </form>
+
+        <!-- Tab 2: Entrance Exam - Book Slot Form -->
+        <form class="modal-form eligibility-panel" id="eligibility-form-entrance" data-panel="entrance-exam">
+            <div class="eligibility-exam-info">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10" />
+                    <line x1="12" y1="16" x2="12" y2="12" />
+                    <line x1="12" y1="8" x2="12.01" y2="8" />
+                </svg>
+                <span>Book your entrance exam slot. We will contact you with the exam date &amp; details.</span>
+            </div>
+            <div class="form-group">
+                <label for="eligibility-ee-name">Name</label>
+                <input type="text" id="eligibility-ee-name" class="form-control" placeholder="Enter your name"
+                    pattern="[A-Za-z ]+" title="Only letters and spaces are allowed" required>
+            </div>
+            <div class="form-group">
+                <label for="eligibility-ee-mobile">Phone Number</label>
+                <input type="tel" id="eligibility-ee-mobile" class="form-control" placeholder="Enter your mobile number"
+                    pattern="[0-9]{10}" maxlength="10" title="Enter a valid 10-digit mobile number" required>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Book Exam Slot</button>
+            <div class="form-success-msg" id="eligibility-ee-success" style="display: none; margin-top: 1rem;">
+                <span>Slot booked! We will call you with exam date &amp; details.</span>
             </div>
         </form>
     </div>

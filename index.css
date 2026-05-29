@@ -2461,6 +2461,104 @@ a.info-item-link:hover .info-icon {
     gap: 1.25rem;
 }
 
+/* --- ELIGIBILITY TABS --- */
+.eligibility-tabs {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1.75rem;
+    background: #f1f5f9;
+    border-radius: 12px;
+    padding: 0.35rem;
+}
+
+.eligibility-tab {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    border: none;
+    background: transparent;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #64748b;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    white-space: nowrap;
+}
+
+.eligibility-tab:hover {
+    color: #334155;
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.eligibility-tab.active {
+    background: #ffffff;
+    color: #2563eb;
+    box-shadow: 0 2px 8px rgba(37, 99, 235, 0.15), 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+.eligibility-tab svg {
+    flex-shrink: 0;
+}
+
+/* --- ELIGIBILITY PANELS --- */
+.eligibility-panel {
+    display: none;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.eligibility-panel.active {
+    display: flex;
+    animation: eligibilityFadeIn 0.35s ease-out;
+}
+
+@keyframes eligibilityFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Entrance Exam Info Box */
+.eligibility-exam-info {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+    border-radius: 10px;
+    padding: 1rem 1.25rem;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: #1e40af;
+}
+
+.eligibility-exam-info svg {
+    flex-shrink: 0;
+    margin-top: 1px;
+    color: #3b82f6;
+}
+
+/* Responsive: stack tabs vertically on very small screens */
+@media screen and (max-width: 400px) {
+    .eligibility-tabs {
+        flex-direction: column;
+        gap: 0.35rem;
+    }
+    
+    .eligibility-tab {
+        justify-content: center;
+    }
+}
+
 /* ==========================================================================
    STAR RATING & REVIEW FORM
    ========================================================================== */

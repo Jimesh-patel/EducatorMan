@@ -281,9 +281,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- MODALS ---
     const modalOverlay = document.getElementById('modal-overlay');
     const demoModal = document.getElementById('demo-modal');
+    const empowermentModal = document.getElementById('empowerment-modal');
     const eligibilityModal = document.getElementById('eligibility-modal');
 
     const demoBtns = document.querySelectorAll('.btn-demo-modal');
+    const empowermentBtns = document.querySelectorAll('.btn-empowerment-modal');
     const eligibilityBtns = document.querySelectorAll('.btn-eligibility-modal');
     
     const closeBtns = document.querySelectorAll('.modal-close');
@@ -304,14 +306,25 @@ document.addEventListener('DOMContentLoaded', () => {
         // Hide success messages on close
         const demoSuccess = document.getElementById('demo-success');
         if(demoSuccess) demoSuccess.style.display = 'none';
-        const eligSuccess = document.getElementById('eligibility-success');
-        if(eligSuccess) eligSuccess.style.display = 'none';
+        const empowermentSuccess = document.getElementById('empowerment-success');
+        if(empowermentSuccess) empowermentSuccess.style.display = 'none';
+        const eligLrSuccess = document.getElementById('eligibility-lr-success');
+        if(eligLrSuccess) eligLrSuccess.style.display = 'none';
+        const eligEeSuccess = document.getElementById('eligibility-ee-success');
+        if(eligEeSuccess) eligEeSuccess.style.display = 'none';
     }
 
     demoBtns.forEach(btn => {
         btn.addEventListener('click', (e) => {
             e.preventDefault();
             openModal(demoModal);
+        });
+    });
+
+    empowermentBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            openModal(empowermentModal);
         });
     });
 
@@ -340,12 +353,59 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    const eligibilityForm = document.getElementById('eligibility-form');
-    if(eligibilityForm) {
-        eligibilityForm.addEventListener('submit', (e) => {
+    const empowermentForm = document.getElementById('empowerment-form');
+    if(empowermentForm) {
+        empowermentForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            document.getElementById('eligibility-success').style.display = 'block';
-            eligibilityForm.reset();
+            document.getElementById('empowerment-success').style.display = 'block';
+            empowermentForm.reset();
+        });
+    }
+
+    // --- ELIGIBILITY TABS ---
+    const eligibilityTabs = document.querySelectorAll('.eligibility-tab');
+    const eligibilityPanels = document.querySelectorAll('.eligibility-panel');
+
+    eligibilityTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            const targetPanel = tab.getAttribute('data-tab');
+
+            // Switch active tab
+            eligibilityTabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+
+            // Switch active panel
+            eligibilityPanels.forEach(panel => {
+                if (panel.getAttribute('data-panel') === targetPanel) {
+                    panel.classList.add('active');
+                } else {
+                    panel.classList.remove('active');
+                    // Hide success messages and reset form when switching away
+                    const successMsg = panel.querySelector('.form-success-msg');
+                    if (successMsg) successMsg.style.display = 'none';
+                    panel.reset();
+                }
+            });
+        });
+    });
+
+    // Last Result form submission
+    const eligibilityFormLR = document.getElementById('eligibility-form-last-result');
+    if(eligibilityFormLR) {
+        eligibilityFormLR.addEventListener('submit', (e) => {
+            e.preventDefault();
+            document.getElementById('eligibility-lr-success').style.display = 'block';
+            eligibilityFormLR.reset();
+        });
+    }
+
+    // Entrance Exam form submission
+    const eligibilityFormEE = document.getElementById('eligibility-form-entrance');
+    if(eligibilityFormEE) {
+        eligibilityFormEE.addEventListener('submit', (e) => {
+            e.preventDefault();
+            document.getElementById('eligibility-ee-success').style.display = 'block';
+            eligibilityFormEE.reset();
         });
     }
 
