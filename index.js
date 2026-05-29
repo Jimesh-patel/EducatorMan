@@ -17,9 +17,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
     
-    window.addEventListener('scroll', handleHeaderScroll);
-    handleHeaderScroll(); // Trigger initially on page load
-
+    if (header) {
+        window.addEventListener('scroll', handleHeaderScroll);
+        handleHeaderScroll(); // Trigger initially on page load
+    }
 
     // --- MOBILE MENU TOGGLE ---
     const menuToggle = document.getElementById('menu-toggle');
@@ -39,25 +40,26 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const closeMenu = () => {
-        menuToggle.classList.remove('open');
-        navMenu.classList.remove('open');
+        if (menuToggle) menuToggle.classList.remove('open');
+        if (navMenu) navMenu.classList.remove('open');
         document.body.style.overflow = '';
     };
 
-    menuToggle.addEventListener('click', toggleMenu);
+    if (menuToggle && navMenu) {
+        menuToggle.addEventListener('click', toggleMenu);
 
-    // Close menu when clicking a navigation link or clicking outside the menu
-    navLinks.forEach(link => {
-        link.addEventListener('click', closeMenu);
-    });
+        // Close menu when clicking a navigation link or clicking outside the menu
+        navLinks.forEach(link => {
+            link.addEventListener('click', closeMenu);
+        });
 
-    document.addEventListener('click', (event) => {
-        const isClickInside = navMenu.contains(event.target) || menuToggle.contains(event.target);
-        if (!isClickInside && navMenu.classList.contains('open')) {
-            closeMenu();
-        }
-    });
-
+        document.addEventListener('click', (event) => {
+            const isClickInside = navMenu.contains(event.target) || menuToggle.contains(event.target);
+            if (!isClickInside && navMenu.classList.contains('open')) {
+                closeMenu();
+            }
+        });
+    }
 
     // --- SMOOTH SCROLLING FOR NAV LINKS ---
     // Handles clicking links and scrolling to target with offset adjustment for sticky navbar
@@ -69,7 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (targetId === '#') return;
             
             const targetElement = document.querySelector(targetId);
-            if (targetElement) {
+            if (targetElement && header) {
                 e.preventDefault();
                 closeMenu(); // Close mobile navigation if open
                 
@@ -96,11 +98,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('revealed');
                     
-                    // Specific sub-animation inside results section: trigger metric filling
-                    if (entry.target.classList.contains('results-info')) {
-                        triggerProgressBars();
-                    }
-                    
                     observer.unobserve(entry.target); // Stop observing once revealed
                 }
             });
@@ -116,70 +113,6 @@ document.addEventListener('DOMContentLoaded', () => {
         // Fallback for older browsers
         revealElements.forEach(element => {
             element.classList.add('revealed');
-        });
-        triggerProgressBars();
-    }
-
-
-    // --- RESULTS PROGRESS BAR ANIMATION ---
-    function triggerProgressBars() {
-        const progressBars = document.querySelectorAll('.progress-bar-fill');
-        progressBars.forEach(bar => {
-            const targetWidth = bar.getAttribute('data-width');
-            bar.style.width = `${targetWidth}%`;
-        });
-    }
-
-
-    // --- ANIMATED COUNTERS ---
-    // Smooth count-up utility using requestAnimationFrame for 60fps performance
-    const statsSection = document.querySelector('.stats');
-    const statNumbers = document.querySelectorAll('.stat-number');
-    let countersStarted = false;
-
-    const animateCounter = (element) => {
-        const target = parseInt(element.getAttribute('data-target'), 10);
-        const duration = 2000; // Animation duration in milliseconds
-        let startTime = null;
-
-        const step = (timestamp) => {
-            if (!startTime) startTime = timestamp;
-            const progress = Math.min((timestamp - startTime) / duration, 1);
-            
-            // Ease-out cubic calculation for professional progressive slowdown
-            const easedProgress = 1 - Math.pow(1 - progress, 3);
-            const currentValue = Math.floor(easedProgress * target);
-            
-            element.textContent = currentValue.toLocaleString();
-            
-            if (progress < 1) {
-                window.requestAnimationFrame(step);
-            } else {
-                element.textContent = target.toLocaleString(); // Exact finish
-            }
-        };
-
-        window.requestAnimationFrame(step);
-    };
-
-    if ('IntersectionObserver' in window && statsSection) {
-        const statsObserver = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting && !countersStarted) {
-                    countersStarted = true;
-                    statNumbers.forEach(num => animateCounter(num));
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, {
-            threshold: 0.25
-        });
-
-        statsObserver.observe(statsSection);
-    } else {
-        // Fallback
-        statNumbers.forEach(num => {
-            num.textContent = num.getAttribute('data-target');
         });
     }
 
@@ -224,15 +157,16 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
             
             // Collect Form Values (Mock submission behavior)
-            const studentName = document.getElementById('student-name').value;
-            const parentName = document.getElementById('parent-name').value;
-            const phone = document.getElementById('phone').value;
-            const email = document.getElementById('email').value;
-            const course = document.getElementById('course-select').value;
-            const message = document.getElementById('message').value;
+            const studentName = document.getElementById('student-name') ? document.getElementById('student-name').value : '';
+            const parentName = document.getElementById('parent-name') ? document.getElementById('parent-name').value : '';
+            const phone = document.getElementById('phone') ? document.getElementById('phone').value : '';
+            const email = document.getElementById('email') ? document.getElementById('email').value : '';
+            const course = document.getElementById('course-select') ? document.getElementById('course-select').value : '';
+            const message = document.getElementById('message') ? document.getElementById('message').value : '';
 
             // Submit Button loading feedback
             const submitBtn = contactForm.querySelector('button[type="submit"]');
+            if (!submitBtn) return;
             const originalBtnText = submitBtn.textContent;
             
             submitBtn.disabled = true;
@@ -266,21 +200,23 @@ document.addEventListener('DOMContentLoaded', () => {
                     console.log('----------------------------------------');
 
                     // Smoothly trigger and display visual confirmation banner
-                    formSuccessMsg.style.display = 'flex';
-                    formSuccessMsg.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                    
-                    // Clear input controls
-                    contactForm.reset();
+                    if (formSuccessMsg) {
+                        formSuccessMsg.style.display = 'flex';
+                        formSuccessMsg.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                        
+                        // Clear input controls
+                        contactForm.reset();
 
-                    // Clear success message automatically after 6 seconds
-                    setTimeout(() => {
-                        formSuccessMsg.style.transition = 'opacity 0.5s ease';
-                        formSuccessMsg.style.opacity = '0';
+                        // Clear success message automatically after 6 seconds
                         setTimeout(() => {
-                            formSuccessMsg.style.display = 'none';
-                            formSuccessMsg.style.opacity = '1';
-                        }, 500);
-                    }, 6000);
+                            formSuccessMsg.style.transition = 'opacity 0.5s ease';
+                            formSuccessMsg.style.opacity = '0';
+                            setTimeout(() => {
+                                formSuccessMsg.style.display = 'none';
+                                formSuccessMsg.style.opacity = '1';
+                            }, 500);
+                        }, 6000);
+                    }
                 } else {
                     throw new Error('Form submission failed');
                 }
@@ -299,9 +235,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const streamGroup = document.getElementById("stream-group");
     const streamSelect = document.getElementById("stream-select");
 
-    if (courseSelect) {
+    if (courseSelect && streamGroup && streamSelect) {
         courseSelect.addEventListener("change", function () {
-
             if (this.value === "11th" || this.value === "12th") {
                 streamGroup.style.display = "block";
                 streamSelect.required = true;
@@ -310,7 +245,128 @@ document.addEventListener('DOMContentLoaded', () => {
                 streamSelect.required = false;
                 streamSelect.value = "";
             }
+        });
+    }
 
+    // --- CURRICULUM ACCORDION ---
+    const accordionItems = document.querySelectorAll('.accordion-item');
+    
+    accordionItems.forEach(item => {
+        const header = item.querySelector('.accordion-header');
+        
+        if (header) {
+            header.addEventListener('click', () => {
+                const isOpen = item.classList.contains('active');
+                
+                // Close all items
+                accordionItems.forEach(acc => {
+                    acc.classList.remove('active');
+                    const accHeader = acc.querySelector('.accordion-header');
+                    if(accHeader) accHeader.setAttribute('aria-expanded', 'false');
+                    const accContent = acc.querySelector('.accordion-content');
+                    if(accContent) accContent.style.maxHeight = null;
+                });
+                
+                // If it wasn't open, open it
+                if (!isOpen) {
+                    item.classList.add('active');
+                    header.setAttribute('aria-expanded', 'true');
+                    const content = item.querySelector('.accordion-content');
+                    if(content) content.style.maxHeight = content.scrollHeight + "px";
+                }
+            });
+        }
+    });
+
+    // --- MODALS ---
+    const modalOverlay = document.getElementById('modal-overlay');
+    const demoModal = document.getElementById('demo-modal');
+    const eligibilityModal = document.getElementById('eligibility-modal');
+
+    const demoBtns = document.querySelectorAll('.btn-demo-modal');
+    const eligibilityBtns = document.querySelectorAll('.btn-eligibility-modal');
+    
+    const closeBtns = document.querySelectorAll('.modal-close');
+
+    function openModal(modal) {
+        if (!modalOverlay || !modal) return;
+        modalOverlay.classList.add('active');
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden'; // Prevent scrolling
+    }
+
+    function closeModal() {
+        if (!modalOverlay) return;
+        modalOverlay.classList.remove('active');
+        document.querySelectorAll('.modal').forEach(m => m.classList.remove('active'));
+        document.body.style.overflow = '';
+        
+        // Hide success messages on close
+        const demoSuccess = document.getElementById('demo-success');
+        if(demoSuccess) demoSuccess.style.display = 'none';
+        const eligSuccess = document.getElementById('eligibility-success');
+        if(eligSuccess) eligSuccess.style.display = 'none';
+    }
+
+    demoBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            openModal(demoModal);
+        });
+    });
+
+    eligibilityBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            openModal(eligibilityModal);
+        });
+    });
+
+    closeBtns.forEach(btn => {
+        btn.addEventListener('click', closeModal);
+    });
+
+    if(modalOverlay) {
+        modalOverlay.addEventListener('click', closeModal);
+    }
+
+    // Form Submissions
+    const demoForm = document.getElementById('demo-form');
+    if(demoForm) {
+        demoForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            document.getElementById('demo-success').style.display = 'block';
+            demoForm.reset();
+        });
+    }
+
+    const eligibilityForm = document.getElementById('eligibility-form');
+    if(eligibilityForm) {
+        eligibilityForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            document.getElementById('eligibility-success').style.display = 'block';
+            eligibilityForm.reset();
+        });
+    }
+
+    // --- REVIEW FORM ---
+    const reviewForm = document.getElementById('review-form');
+    if(reviewForm) {
+        reviewForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const reviewSuccess = document.getElementById('review-success');
+            if(reviewSuccess) {
+                reviewSuccess.style.display = 'flex';
+                setTimeout(() => {
+                    reviewSuccess.style.transition = 'opacity 0.5s ease';
+                    reviewSuccess.style.opacity = '0';
+                    setTimeout(() => {
+                        reviewSuccess.style.display = 'none';
+                        reviewSuccess.style.opacity = '1';
+                    }, 500);
+                }, 5000);
+            }
+            reviewForm.reset();
         });
     }
 
