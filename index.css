@@ -66,6 +66,7 @@ html {
     scroll-behavior: smooth;
     font-size: 16px;
     -webkit-text-size-adjust: 100%;
+    overflow-x: hidden;
 }
 
 body {
@@ -75,6 +76,8 @@ body {
     font-weight: var(--font-weight-regular);
     line-height: 1.6;
     overflow-x: hidden;
+    position: relative;
+    width: 100%;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -375,7 +378,7 @@ button, input, select, textarea {
 /* --- HERO SECTION --- */
 .hero {
     position: relative;
-    padding-top: 10rem;
+    padding-top: 13rem; /* Added space between header and hero section */
     padding-bottom: 6rem;
     background-color: var(--color-bg-primary);
     overflow: hidden;
@@ -1418,6 +1421,7 @@ textarea.form-control {
 .contact-details-wrapper {
     display: flex;
     flex-direction: column;
+    min-width: 0; /* Prevent horizontal overflow in grid layout */
 }
 
 .contact-card-info h3 {
@@ -1452,6 +1456,7 @@ a.info-item-link {
     margin: -0.75rem;
     border-radius: var(--border-radius-md);
     transition: var(--transition-normal);
+    min-width: 0; /* Prevent horizontal overflow in flex layout */
 }
 
 a.info-item-link:hover {
@@ -1485,6 +1490,7 @@ a.info-item-link:hover .info-icon {
     display: flex;
     flex-direction: column;
     gap: 0.15rem;
+    min-width: 0; /* Prevent overflow of long child text */
 }
 
 .info-text span {
@@ -1499,6 +1505,9 @@ a.info-item-link:hover .info-icon {
     font-size: 1.0625rem;
     color: var(--color-text-title);
     font-weight: var(--font-weight-semibold);
+    white-space: normal;
+    word-break: break-word;
+    overflow-wrap: break-word; /* Ensure address details wrap properly on small viewports */
 }
 
 /* Interactive Map & WhatsApp Floating Button */
@@ -1529,6 +1538,7 @@ a.info-item-link:hover .info-icon {
 
 .map-container {
     width: 100%;
+    height: 350px; /* Added explicit height so map renders properly */
     border-radius: var(--border-radius-md);
     overflow: hidden;
     border: 1px solid var(--color-border);
@@ -1832,13 +1842,23 @@ a.info-item-link:hover .info-icon {
 /* --- MOBILE MENU & NAV STYLING (Max-width: 768px) --- */
 @media screen and (max-width: 768px) {
     /* Mobile Navigation */
-    .header {
+    .header,
+    .header.scrolled {
         top: 0;
+        left: 0;
+        transform: none;
+        width: 100%;
+        max-width: 100%;
         border-radius: 0;
         border-left: none;
         border-right: none;
         border-top: none;
         background-color: rgba(255, 255, 255, 0.98);
+    }
+
+    .hero {
+        padding-top: 11rem; /* Adjust padding-top for mobile header space */
+        padding-bottom: 4rem;
     }
 
     .menu-toggle {
@@ -1923,13 +1943,17 @@ a.info-item-link:hover .info-icon {
     }
 
     .floating-card-1 {
-        left: -5%;
+        left: 0.5rem;
         top: 20%;
     }
 
     .floating-card-2 {
-        right: -5%;
+        right: 0.5rem;
         bottom: 20%;
+    }
+
+    .map-container {
+        height: 250px; /* Adjust map height on mobile screens */
     }
 
     /* CTA Section scaling */
@@ -2013,6 +2037,15 @@ a.info-item-link:hover .info-icon {
 
     .offers-grid {
         grid-template-columns: 1fr;
+    }
+
+    /* Adjust scroll reveal animations on mobile to prevent horizontal viewport stretching */
+    .reveal-left,
+    .reveal-right {
+        transform: translateY(15px);
+    }
+    .reveal-up {
+        transform: translateY(15px);
     }
 }
 
