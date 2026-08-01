@@ -2349,6 +2349,7 @@ a.info-item-link:hover .info-icon {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 1.25rem;
+    align-items: start;
 }
 
 .standard-item {
