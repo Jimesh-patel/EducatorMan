@@ -1393,8 +1393,6 @@ a.info-item-link:hover .info-icon {
     display: block;
 }
 
-.map-wrapper {}
-
 .map-container {
     width: 100%;
     height: 230px;
@@ -2196,7 +2194,7 @@ a.info-item-link:hover .info-icon {
 }
 
 /* ===========================
-   UNIQUE FACULTY SECTION
+   FACULTY CAROUSEL SECTION
 =========================== */
 
 .faculty-section {
@@ -2204,12 +2202,32 @@ a.info-item-link:hover .info-icon {
     background: #f8fafc;
 }
 
-.faculty-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
+/* --- Carousel Container --- */
+.faculty-carousel {
+    position: relative;
+    overflow: hidden;
+    padding: 50px 0 3rem;
 }
 
+.carousel-track {
+    display: flex;
+    transition: transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+    will-change: transform;
+    cursor: grab;
+}
+
+.carousel-track.is-dragging {
+    cursor: grabbing;
+    transition: none;
+}
+
+.faculty-slide {
+    flex: 0 0 calc(100% / 3);
+    padding: 0 1rem;
+    box-sizing: border-box;
+}
+
+/* --- Faculty Card (inside carousel) --- */
 .faculty-box {
     position: relative;
     background: #fff;
@@ -2217,8 +2235,8 @@ a.info-item-link:hover .info-icon {
     padding-top: 70px;
     overflow: visible;
     border: 1px solid #e2e8f0;
-    transition: .35s ease;
-    box-shadow: 0 15px 40px rgba(15, 23, 42, .05);
+    transition: all 0.35s ease;
+    height: 100%;
 }
 
 .faculty-box:hover {
@@ -2233,9 +2251,7 @@ a.info-item-link:hover .info-icon {
     left: 0;
     width: 5px;
     height: 80px;
-    background: linear-gradient(to bottom,
-            #2563eb,
-            #60a5fa);
+    background: linear-gradient(to bottom, #2563eb, #60a5fa);
     border-radius: 20px;
 }
 
@@ -2310,19 +2326,115 @@ a.info-item-link:hover .info-icon {
     font-size: .8rem;
 }
 
-@media(max-width:992px) {
-    .faculty-grid {
-        grid-template-columns: repeat(2, 1fr);
+/* --- Carousel Navigation Buttons --- */
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    color: var(--color-text-title);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+}
+
+.carousel-btn:hover {
+    background: var(--color-accent);
+    color: #ffffff;
+    border-color: var(--color-accent);
+    box-shadow: 0 8px 20px rgba(37, 99, 235, 0.25);
+    transform: translateY(-50%) scale(1.08);
+}
+
+.carousel-btn:active {
+    transform: translateY(-50%) scale(0.95);
+}
+
+.carousel-btn-prev {
+    left: -8px;
+}
+
+.carousel-btn-next {
+    right: -8px;
+}
+
+.carousel-btn svg {
+    flex-shrink: 0;
+}
+
+/* --- Carousel Dots --- */
+.carousel-dots {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 2rem;
+}
+
+.carousel-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #cbd5e1;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 0;
+}
+
+.carousel-dot:hover {
+    background: #94a3b8;
+    transform: scale(1.2);
+}
+
+.carousel-dot.active {
+    background: var(--color-accent);
+    width: 28px;
+    border-radius: 9999px;
+}
+
+/* --- Responsive --- */
+@media (max-width: 992px) {
+    .faculty-slide {
+        flex: 0 0 50%;
+    }
+
+    .carousel-btn-prev {
+        left: 4px;
+    }
+
+    .carousel-btn-next {
+        right: 4px;
     }
 }
 
-@media(max-width:768px) {
-    .faculty-grid {
-        grid-template-columns: 1fr;
+@media (max-width: 768px) {
+    .faculty-slide {
+        flex: 0 0 100%;
+    }
+
+    .carousel-btn {
+        width: 38px;
+        height: 38px;
+    }
+
+    .carousel-btn-prev {
+        left: 2px;
+    }
+
+    .carousel-btn-next {
+        right: 2px;
     }
 
     .faculty-box {
-        margin-top: 40px;
+        margin-top: 0;
     }
 }
 

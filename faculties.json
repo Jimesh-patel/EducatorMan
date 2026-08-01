@@ -1,0 +1,94 @@
+{
+    "F1": {
+        "name": "Sahil Patel Sir",
+        "role": "Accounts Faculty",
+        "experience": "2+ Years",
+        "description": "An expert in Financial Accounting and Bookkeeping holding comprehensive mastery across all major account modules. Offers dedicated guidance focused on building crystal-clear fundamentals, practical concepts, and exam-oriented problem solving.",
+        "specialization": [
+            "Standard 11th",
+            "Standard 12th",
+            "GSEB",
+            "CBSE",
+            "All Major Commerce & Competitive Examinations"
+        ],
+        "image": "assests/sahil-patel.jpeg"
+    },
+    "F2": {
+        "name": "Janki Ma'am Vyas",
+        "role": "Biology Faculty",
+        "experience": "3+ Years",
+        "description": "A passionate Biology expert dedicated to simplifying complex physiological and genetic concepts for 11th & 12th Standard students. Specializes in clear, diagram-focused explanations that build a strong foundation. Highly effective in preparing students for both Exams and competitive medical entrance, with a focus on core subject mastery.",
+        "specialization": [
+            "11th Standard",
+            "12th Standard",
+            "NEET",
+            "NCERT Boards",
+            "GSEB/CBSE",
+            "Explore All Biology Resources"
+        ],
+        "image": "assests/janki.jpeg"
+    },
+    "F3": {
+        "name": "Grishma Patel Ma'am",
+        "role": "Gujarati & Hindi Faculty",
+        "experience": "5+ Years",
+        "description": "A dedicated and inspiring educator specializing in Gujarati and Hindi languages. Grishma Ma'am is passionate about cultivating a deep understanding and appreciation for literature and grammar in from Std. 6th to 10th. She employs interactive and engaging teaching methodologies to make learning vibrant, focusing on building strong communication skills and fostering thinking. Highly experienced in guiding students through curriculum requirements and preparing them comprehensively for both board assessments, with a focus on subject mastery.",
+        "specialization": [
+            "Std. 6th - 10th",
+            "Gujarati",
+            "Hindi",
+            "Explore Language Resources"
+        ],
+        "image": "assests/grishma.jpeg"
+    },
+    "F4": {
+        "name": "Sahil Khichda Sir",
+        "role": "Physics Faculty",
+        "experience": "3+ Years",
+        "description": "An expert in Physics holding a PhD in Astrophysics. Focuses on classical mechanics, electrodynamics, and modern physics. Offers comprehensive mastery across all major modules, with exceptional depth in understanding fundamental principles.",
+        "specialization": [
+            "JEE",
+            "NEET",
+            "GUJCET",
+            "All Major National Entrance Examinations"
+        ],
+        "image": "assests/sahil-khichda.jpeg"
+    },
+    "F5": {
+        "name": "Nirav Sir",
+        "role": "Maths Faculty",
+        "experience": "12+ Years",
+        "description": "A highly distinguished senior faculty member in Mathematics with over 12 years of dedicated teaching experience. Possesses a master's degree and holds deep expertise in Algebra, Calculus, Trigonometry, and Coordinatometry. Known for simplifying complex mathematical concepts and fostering a strong logical thinking foundation. Offers comprehensive mastery across all major modules, with exceptional depth in understanding fundamental principles.",
+        "specialization": [
+            "JEE",
+            "NEET",
+            "GUJCET",
+            "All Major National Entrance Examinations"
+        ],
+        "image": "assests/nirav.jpg"
+    },
+    "F6": {
+        "name": "Bansi Patel Ma'am",
+        "role": "English Language Faculty",
+        "experience": "5+ Years",
+        "description": "A dedicated and inspiring educator specializing in English Language. Bansi Ma'am is passionate about cultivating a deep understanding and appreciation for literature and grammar in from Std. 6th to 10th. She employs interactive and engaging teaching methodologies to make learning vibrant, focusing on building strong communication skills and fostering thinking. Highly experienced in guiding students through curriculum requirements and preparing them comprehensively for both board assessments, with a focus on subject mastery.",
+        "specialization": [
+            "Std. 6th - 10th",
+            "English",
+            "Explore Language Resources"
+        ],
+        "image": "assests/bansi-patel.jpeg"
+    },
+    "F7": {
+        "name": "Hasti Ma'am",
+        "role": "Maths & Science Faculty",
+        "experience": "5+ Years",
+        "description": "A dedicated and inspiring educator specializing in Mathematics and Science for students from Std. 6th to 10th. Hasti Ma'am focuses on building strong conceptual understanding through interactive teaching, practical examples, and problem-solving techniques. She helps students develop analytical thinking, logical reasoning, and confidence while preparing them comprehensively for school examinations and building a solid academic foundation.",
+        "specialization": [
+            "Std. 6th - 10th",
+            "Maths",
+            "Science"
+        ],
+        "image": "assests/hasti.jpg"
+    }
+}
